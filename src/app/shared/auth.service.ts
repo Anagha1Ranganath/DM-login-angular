@@ -1,15 +1,19 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from 'selenium-webdriver/http';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+// import 'rxjs/operator/map';
 
 @Injectable()
-{
-    export class AuthService {
-        private _loginUrl = 'http://localhost:8808/api/deliveryManager';
+export class LoginService {
 
-        constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) { }
 
-        loginUser(user) {
-            return this.http.post<any>(this._loginUrl, user)
-        }
+    login(data) {
+        data = { email: 'admin@example.com', password: 'Test@123' };
+        return this.http.post('http://localhost:8808/api/deliveryManager', data);
     }
+
+    getCustomerDetails() {
+        return this.http.get('http://localhost:3070/api/deliveryManager');
+    }
+
 }
